@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Minha Página com Barra Superior</title>
+    <title>Minha Página com Conteúdo de Outro Site</title>
     <style>
         /* Estilo para a barra superior */
         .top-bar {
@@ -17,13 +17,10 @@
             z-index: 9999;
         }
 
-        /* Estilo para o iframe que exibe o site sobreposto */
-        .site-frame {
+        /* Estilo para o conteúdo do site */
+        .site-content {
             position: relative;
             top: 50px;
-            width: 100%;
-            height: calc(100vh - 50px);
-            border: none;
         }
     </style>
 </head>
@@ -32,6 +29,21 @@
         <!-- Conteúdo da barra superior -->
         <h1>Minha Barra Superior</h1>
     </div>
-    <iframe class="site-frame" src="https://scratch.mit.edu/projects/editor"></iframe>
+    <div class="site-content" id="content"></div>
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        var url = 'https://makecode.microbit.org/';
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var contentDiv = document.getElementById('content');
+                contentDiv.innerHTML = xhr.responseText;
+            }
+        };
+
+        xhr.open('GET', url, true);
+        xhr.send();
+    </script>
 </body>
 </html>
